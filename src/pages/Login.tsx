@@ -77,9 +77,6 @@ export default function Login({ onLoginSuccess }: LoginProps) {
     return (
     <div className="min-h-screen flex flex-col md:flex-row">
       <div className="flex-1 bg-gradient-to-br from-green-700 to-green-500 text-white flex flex-col justify-center items-center p-10">
-        <div className="mb-6">
-          <img src="/DLSL.png" alt="DLSL Logo" className="h-24 w-auto mb-4" />
-        </div>
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg text-center">
           DLSL OrgSync
         </h1>
