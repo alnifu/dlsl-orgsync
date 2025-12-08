@@ -774,7 +774,12 @@ export default function UserNewsFeed() {
 
               {/* Body */}
               <div className="mt-4">
-                <h2 className="text-lg font-bold text-gray-900">{post.title}</h2>
+                <h2 
+                  className="text-lg font-bold text-gray-900 cursor-pointer hover:text-green-600 transition-colors"
+                  onClick={() => navigate(`/user/dashboard/posts/${post.id}`)}
+                >
+                  {post.title}
+                </h2>
 
                 {post.post_type === "general" && <p className="text-gray-700 mt-4">{post.content}</p>}
 
