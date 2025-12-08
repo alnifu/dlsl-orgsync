@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { supabase } from "../../../lib/supabase";
 import { Heart, Search, ChevronLeft, ChevronRight, Filter, Share2 } from "lucide-react";
@@ -472,7 +472,7 @@ export default function UserNewsFeed() {
   const [showButtons, setShowButtons] = useState(false);
   const [localValues, setLocalValues] = useState<{ [key: string]: string }>({});
 
-  const parsed = JSON.parse(post.content);
+  const parsed = useMemo(() => JSON.parse(post.content), [post.content]);
   const hasSubmitted = feedbackSubmitted[post.id] ?? false;
 
   // Initialize localValues with existing responses
@@ -484,7 +484,7 @@ export default function UserNewsFeed() {
       });
       setLocalValues(initialValues);
     }
-  }, [parsed.fields, feedbackResponses, post.id]);
+  }, [parsed.fields, feedbackResponses[post.id], post.id]);
 
   const handleInputChange = (index: number, value: string) => {
     setLocalValues((prev) => ({ ...prev, [index]: value }));
@@ -595,7 +595,7 @@ export default function UserNewsFeed() {
         React.SetStateAction<{ [key: string]: number | null }>
       >;
     }) {
-      const parsed = JSON.parse(post.content);
+      const parsed = useMemo(() => JSON.parse(post.content), [post.content]);
       const selectedIndex = pollSelections[post.id] ?? null;
       const userVote = pollUserVotes[post.id] ?? null;
       const hasVoted = userVote !== null;

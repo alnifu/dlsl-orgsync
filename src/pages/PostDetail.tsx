@@ -100,18 +100,19 @@ export default function PostDetail() {
         fetchUserFormResponse();
       }
     }
-  }, [currentUser, postId, post]);
+  }, [currentUser?.id, postId, post?.id, post?.post_type]);
 
   useEffect(() => {
-    if (post) {
-      if (post.org_id) {
-        fetchOrgData();
-      }
-      if (post.user_id) {
-        fetchUserData();
-      }
+    if (post?.org_id && !orgData) {
+      fetchOrgData();
     }
-  }, [post]);
+  }, [post?.org_id, orgData]);
+
+  useEffect(() => {
+    if (post?.user_id && !userData) {
+      fetchUserData();
+    }
+  }, [post?.user_id, userData]);
 
   async function fetchOrgData() {
     if (!post?.org_id) return;
@@ -663,17 +664,6 @@ export default function PostDetail() {
                   Event Details
                 </h3>
                 <div className="space-y-3">
-                  {(() => {
-                    console.log('Event Details Debug:', {
-                      postType: post.post_type,
-                      eventDate: post.event_date,
-                      startTime: post.start_time,
-                      endTime: post.end_time,
-                      location: post.location,
-                      fullPost: post
-                    });
-                    return null;
-                  })()}
                   {post.event_date && (
                     <div className="flex items-center gap-3">
                       <CalendarIcon size={18} className="text-blue-600" />
